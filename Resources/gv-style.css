@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+
+/* GALLERY CONTAINER */
+.gallery { background: #fff;
+           border: 1px solid #aaa; 
+           padding: 2px;}
+
+/* PANEL OVERLAY CONTENT */
+.panel .panel-overlay { color: white;
+                        font-family: Verdana, sans-serif;
+                        font-size: 0.8em; }

@@ -1,0 +1,605 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_EProfile_GetUserLogin]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_EProfile_GetUserLogin]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}[FM_EProfile_GetUserLogin]
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddBuyListings]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddBuyListings]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddBuyListings]
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddRentListings]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddRentListings]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddRentListings]
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetBuyListings]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetBuyListings]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetBuyListings]
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetRentListings]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetRentListings]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetRentListings]
+GO
+/****** Object:  Table {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_PropertyID]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_PropertyID]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Headline]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Headline]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Description]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Description]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Price]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Price]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_StreetNo]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_StreetNo]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_StreetName]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_StreetName]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Suburb]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Suburb]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Category]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Category]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_SubCategory]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_SubCategory]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Bedrooms]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Bedrooms]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Ensuites]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Ensuites]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Bathrooms]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Bathrooms]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Garages]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Garages]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Features]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Features]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Images]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Images]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_MainImage]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_MainImage]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_DataAvailable]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_DataAvailable]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_CreateDate]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_CreateDate]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Rent_Status]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Status]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent]') AND type in (N'U'))
+DROP TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent]
+GO
+/****** Object:  Table {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy]    Script Date: 05/14/2015 17:42:40 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_PropertyID]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_PropertyID]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Description]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Description]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Price]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Price]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_StreetNo]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_StreetNo]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_StreetName]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_StreetName]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Suburb]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Suburb]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Category]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Category]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_SubCategory]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_SubCategory]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Bedrooms]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Bedrooms]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Ensuites]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Ensuites]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Bathrooms]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Bathrooms]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Garages]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Garages]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Features]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Features]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_OtherFeatures]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_OtherFeatures]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_LandArea]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_LandArea]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_FloorArea]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_FloorArea]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Images]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Images]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_MainImage]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_MainImage]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_CreateDate]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_CreateDate]
+END
+GO
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_FM_MaggieDixonListings_Buy_Status]') AND type = 'D')
+BEGIN
+ALTER TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy] DROP CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Status]
+END
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy]') AND type in (N'U'))
+DROP TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy]
+GO
+/****** Object:  Table {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy]') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Buy](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[PropertyID] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_PropertyID]  DEFAULT (''),
+	[Headline] [nvarchar](255) NULL,
+	[Description] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Description]  DEFAULT (''),
+	[Price] [money] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Price]  DEFAULT ((0)),
+	[StreetNo] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_StreetNo]  DEFAULT (''),
+	[StreetName] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_StreetName]  DEFAULT (''),
+	[Suburb] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Suburb]  DEFAULT (''),
+	[Category] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Category]  DEFAULT (''),
+	[SubCategory] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_SubCategory]  DEFAULT (''),
+	[Bedrooms] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Bedrooms]  DEFAULT ((0)),
+	[Ensuites] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Ensuites]  DEFAULT ((0)),
+	[Bathrooms] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Bathrooms]  DEFAULT ((0)),
+	[Garages] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Garages]  DEFAULT ((0)),
+	[Features] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Features]  DEFAULT (''),
+	[OtherFeatures] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_OtherFeatures]  DEFAULT (''),
+	[LandArea] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_LandArea]  DEFAULT (''),
+	[FloorArea] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_FloorArea]  DEFAULT (''),
+	[Images] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Images]  DEFAULT (''),
+	[MainImage] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_MainImage]  DEFAULT (''),
+	[CreateDate] [datetime] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_CreateDate]  DEFAULT (getdate()),
+	[ModifiedDate] [datetime] NULL,
+	[Status] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Buy_Status]  DEFAULT ('')
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+/****** Object:  Table {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent]') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_Rent](
+	[ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[PropertyID] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_PropertyID]  DEFAULT (''),
+	[Headline] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Headline]  DEFAULT (''),
+	[Description] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Description]  DEFAULT (''),
+	[Price] [money] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Price]  DEFAULT ((0)),
+	[StreetNo] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_StreetNo]  DEFAULT (''),
+	[StreetName] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_StreetName]  DEFAULT (''),
+	[Suburb] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Suburb]  DEFAULT (''),
+	[Category] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Category]  DEFAULT (''),
+	[SubCategory] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_SubCategory]  DEFAULT (''),
+	[Bedrooms] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Bedrooms]  DEFAULT ((0)),
+	[Ensuites] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Ensuites]  DEFAULT ((0)),
+	[Bathrooms] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Bathrooms]  DEFAULT ((0)),
+	[Garages] [int] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Garages]  DEFAULT ((0)),
+	[Features] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Features]  DEFAULT (''),
+	[Images] [nvarchar](max) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Images]  DEFAULT (''),
+	[MainImage] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_MainImage]  DEFAULT (''),
+	[DateAvailable] [nvarchar](255) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_DataAvailable]  DEFAULT (''),
+	[CreateDate] [datetime] NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_CreateDate]  DEFAULT (getdate()),
+	[ModifiedDate] [datetime] NULL,
+	[Status] [nvarchar](50) NULL CONSTRAINT [DF_FM_MaggieDixonListings_Rent_Status]  DEFAULT ('')
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetRentListings]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetRentListings]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+CREATE Procedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetRentListings]
+
+AS
+
+
+
+BEGIN
+	SELECT * FROM FM_MaggieDixonListings_Rent Where Status = ''Active'' or Status = ''New''   
+	
+END
+
+' 
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetBuyListings]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetBuyListings]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+CREATE Procedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_GetBuyListings]
+
+AS
+
+
+
+BEGIN
+	SELECT     dbo.FM_MaggieDixonListings_Buy.*
+	FROM         dbo.FM_MaggieDixonListings_Buy
+	WHERE     (Status = ''current'')
+	UNION ALL
+	SELECT     dbo.FM_MaggieDixonListings_Buy.*
+	FROM         dbo.FM_MaggieDixonListings_Buy
+	WHERE     (Status = ''sold'') AND ModifiedDate BETWEEN DATEADD(dd,-7,GETDATE()) AND GETDATE()   
+		
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddRentListings]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddRentListings]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+CREATE Procedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddRentListings]
+@PropertyID nvarchar(50),
+@Headline nvarchar(255),
+@Description nvarchar(Max),
+@Price money,
+@StreetNo nvarchar(255),
+@StreetName nvarchar(255),
+@Suburb nvarchar(255),
+@Category nvarchar(50),
+@SubCategory nvarchar(50),
+@Bedrooms int,
+@Ensuites int,
+@Bathrooms int,
+@Garages int, 
+@Features nvarchar(Max),
+@Images nvarchar(Max),
+@MainImage nvarchar(50),
+@DateAvailable nvarchar(255),
+@ModifiedDate datetime,
+@Status nvarchar(50)
+
+
+AS
+
+
+IF EXISTS (SELECT * FROM FM_MaggieDixonListings_Rent WHERE PropertyID = @PropertyID)
+BEGIN
+    --UPDATE HERE
+    UPDATE FM_MaggieDixonListings_Rent
+    SET
+		Headline = @Headline,
+		[Description] = @Description,
+		Price = @Price,
+		StreetNo = @StreetNo,
+		StreetName = @StreetName,
+		Suburb = @Suburb,
+		Category = @Category,
+		SubCategory = @SubCategory,
+		Bedrooms = @Bedrooms,
+		Ensuites = @Ensuites,
+		Bathrooms = @Bathrooms,
+		Garages = @Garages, 
+		Features = @Features,		
+		Images = @Images,
+		MainImage = @MainImage,
+		DateAvailable = @DateAvailable,
+		ModifiedDate = @ModifiedDate,
+		[Status] = @Status		
+	WHERE PropertyID = @PropertyID
+END
+ELSE
+BEGIN
+   -- INSERT HERE
+	INSERT INTO FM_MaggieDixonListings_Rent
+		(PropertyID,
+		Headline,
+		[Description],
+		Price,
+		StreetNo,
+		StreetName,
+		Suburb,
+		Category,
+		SubCategory,
+		Bedrooms,
+		Ensuites,
+		Bathrooms,
+		Garages, 
+		Features,
+		Images,
+		MainImage,
+		DateAvailable,
+		ModifiedDate,
+		[Status])
+	VALUES
+		(@PropertyID,
+		@Headline,
+		@Description,
+		@Price,
+		@StreetNo,
+		@StreetName,
+		@Suburb,
+		@Category,
+		@SubCategory,
+		@Bedrooms,
+		@Ensuites,
+		@Bathrooms,
+		@Garages, 
+		@Features,		
+		@Images,
+		@MainImage,
+		@DateAvailable,
+		@ModifiedDate,
+		@Status)
+	
+END
+
+--------------------
+
+
+
+
+' 
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddBuyListings]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddBuyListings]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+CREATE Procedure {databaseOwner}{objectQualifier}[FM_MaggieDixonListings_AddBuyListings]
+@PropertyID nvarchar(50),
+@Headline nvarchar(255),
+@Description nvarchar(Max),
+@Price money,
+@StreetNo nvarchar(255),
+@StreetName nvarchar(255),
+@Suburb nvarchar(255),
+@Category nvarchar(50),
+@SubCategory nvarchar(50),
+@Bedrooms int,
+@Ensuites int,
+@Bathrooms int,
+@Garages int, 
+@Features nvarchar(Max),
+@OtherFeatures nvarchar(Max),
+@LandArea nvarchar(50),
+@FloorArea nvarchar(50),
+@Images nvarchar(Max),
+@MainImage nvarchar(Max),
+@ModifiedDate datetime,
+@Status nvarchar(50)
+
+
+AS
+
+
+IF EXISTS (SELECT * FROM FM_MaggieDixonListings_Buy WHERE PropertyID = @PropertyID)
+BEGIN
+    --UPDATE HERE
+    UPDATE FM_MaggieDixonListings_Buy
+    SET
+		Headline = @Headline,
+		[Description] = @Description,
+		Price = @Price,
+		StreetNo = @StreetNo,
+		StreetName = @StreetName,
+		Suburb = @Suburb,
+		Category = @Category,
+		SubCategory = @SubCategory,
+		Bedrooms = @Bedrooms,
+		Ensuites = @Ensuites,
+		Bathrooms = @Bathrooms,
+		Garages = @Garages, 
+		Features = @Features,
+		OtherFeatures = @OtherFeatures,
+		LandArea = @LandArea,
+		FloorArea = @FloorArea,
+		Images = @Images,
+		MainImage = @MainImage,
+		ModifiedDate = @ModifiedDate,
+		[Status] = @Status		
+	WHERE PropertyID = @PropertyID
+END
+ELSE
+BEGIN
+   -- INSERT HERE
+	INSERT INTO FM_MaggieDixonListings_Buy
+		(PropertyID,
+		Headline,
+		[Description],
+		Price,
+		StreetNo,
+		StreetName,
+		Suburb,
+		Category,
+		SubCategory,
+		Bedrooms,
+		Ensuites,
+		Bathrooms,
+		Garages, 
+		Features,
+		OtherFeatures,
+		LandArea,
+		FloorArea,
+		Images,
+		MainImage,
+		ModifiedDate,
+		[Status])
+	VALUES
+		(@PropertyID,
+		@Headline,
+		@Description,
+		@Price,
+		@StreetNo,
+		@StreetName,
+		@Suburb,
+		@Category,
+		@SubCategory,
+		@Bedrooms,
+		@Ensuites,
+		@Bathrooms,
+		@Garages, 
+		@Features,
+		@OtherFeatures,
+		@LandArea,
+		@FloorArea,
+		@Images,
+		@MainImage,
+		@ModifiedDate,
+		@Status)
+	
+END
+
+--------------------
+
+
+
+
+' 
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}{objectQualifier}[FM_EProfile_GetUserLogin]    Script Date: 05/14/2015 17:42:40 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}{objectQualifier}[FM_EProfile_GetUserLogin]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE Procedure {databaseOwner}{objectQualifier}[FM_EProfile_GetUserLogin]      
+@UserName nvarchar(100),    
+@PortalID int    
+       
+AS      
+SELECT     userid as xid ,0 as ProfileID 
+FROM       users' 
+END
+GO
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/
